@@ -1,82 +1,85 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html  lang="utf8" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>登录页面</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
-    <script>
-
-        $(function () {
-            $("#btn").click(function () {
-                $("#errormsg").html("");
-                // 获得手机号
-                var pvar = $("#phone").val();
-                var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
-                if (!myreg.test(pvar)) {
-                    $("#errormsg").html("不是正确的手机号");
-                    $("#errormsg").css("color", "red");
-                } else {
-
-                    alert("发送成功");
-
-                    //发送请求控制层，获得验证码
-
-                    $.ajax({
-                            type: "get",
-                            url: "/learntruth/getYanMa",
-                            data: "phone=" + pvar,
-                            success: function (result) {
-                                if (result.respCode == "00000") {
-
-                                    //手机成功接受验证码短信
-                                    $("#yanzhengma").val(request.yan);
-                                } else {
-                                    // 手机接受短信错误
-                                    $("#errormsg").html(request.respDesc);
-                                    $("#errormsg").css("color", "red");
-
-                                }
-                            },
-                            error: function () {
-                            }
-                        }
-                    );
-                }
-            });
-
-
-            //登录
-            $("#form1").submit(
-                function () {
-
-                    var yan = $("#yanzhengma").val();//验证码
-                    var phone = $("#phonema").val();//填写的验证码
-                    if (yan == phone) {
-                        return true;
-                    }
-
-                }
-            );
-
-
-        });
-    </script>
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>学真网--登录</title>
+    <link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{css/a3common.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{css/login.css}">
+    <link rel="stylesheet" th:href="@{css/font_43459_lbtux0zjkr6yldi.css}">
 </head>
+
+
 <body>
-<form id="form1" th:action="@{/login}">
-    <p>用户名：<input type="text" name="uname"/></p>
-    <p>密码：<input type="password" name="pwd"/></p>
-    <p>手机号码：<input type="number" name="phone" id="phone"/>
-
-        <input type="button" value="获取验证码" id="btn"/> <span id="errormsg"></span></p>
-    <p>验证码：<input type="number" name="phone" id="phonema"/></p>
-    <p><input type="hidden" name="yanzhengma" id="yanzhengma"/></p>
 
 
-    <input type="submit" value="登录"/> <input type="reset" value="取消"/>
+<div id="main" class="main-warp">
+    <div class="main-content">
+        <div class="formDiv">
 
-</form>
+            <h2 class="text-center">登录</h2>
+
+
+            <form id="loginForm" method="post">
+                <div class="dataform">
+                    <div class="input-warp gap">
+                        <span class="input-icon iconfont icon-yonghu1"></span>
+                        <input id="userName" name="username" type="text" class="inputs" placeholder="手机号码或邮箱"
+                               maxlength="64">
+                    </div>
+                    <div class="error-content">
+                        <span id="userNameErr" class="errMsg"></span>
+                    </div>
+
+                    <div class="input-warp gap">
+                        <span class="input-icon iconfont icon-baomi"></span>
+                        <input class="inputs" type="password" name="password" placeholder="密码" id="pwd" maxlength="20">
+                    </div>
+                    <div class="error-content">
+                        <span id="passwordErr" class="errMsg"></span>
+                    </div>
+
+                    <div class="btn-warp gap">
+                        <div class="text-center">
+                            <input type="hidden" value="jsform" id="_app">
+                            <button type="submit" id="btnLogin" class="btn btn-block lgbtn blue">登录</button>
+                        </div>
+                    </div>
+                    <div class="gap">
+
+                        <div class="pull-right" style="margin-top: 6px"><a href="javascript:;"
+                                                                           class="link">忘记密码</a><span
+                                class="split-space">|</span><a
+                                th:href="@{/register}"
+                                class="link">新用户注册</a></div>
+
+                        <div class="pretty-box">
+                            <input type="checkbox" value="1" name="REMEMBER" id="remember" class="">
+                            <label for="remember" style="font-weight: normal">记住我</label>
+                        </div>
+                    </div>
+
+
+                    <div class="biggap third-party-title">
+                        <h5 class="text-center"><span>第三方账号登录</span></h5>
+                    </div>
+                    <div class="third-auth">
+
+                        <a title="用钉钉登录" class="dt" href="javascript:;"></a>
+                        <a title="用微信账户登录" class="wx" href="javascript:;"></a>
+                        <a title="用QQ账户登录" class="qq" href="javascript:;"></a>
+
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 
 
 </body>
