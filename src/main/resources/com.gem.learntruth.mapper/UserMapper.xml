@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gem.learntruth.mapper.UserMapper">
+
+    <select id="selectStuBystuNameAndPwd" resultType="com.gem.learntruth.pojo.Student">
+        SELECT * FROM student WHERE stuTelephone=#{param1} AND stupwd=#{param2}
+    </select>
+    <select id="selectTeaByteNameAndPwd" resultType="com.gem.learntruth.pojo.Teacher">
+        SELECT * FROM teacher WHERE teTelephone=#{param1} AND tepwd=#{param2}
+    </select>
+</mapper>
